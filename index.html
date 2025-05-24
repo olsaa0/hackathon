@@ -149,6 +149,96 @@
   <div class="footer-bottom">
     
   </div>
+
+
+<!-- Chatbot widget -->
+<div id="chatbot-widget" style="position: fixed; bottom: 20px; right: 20px; width: 320px; max-width: 90vw; font-family: Arial, sans-serif; z-index: 9999;">
+  <button id="chatbot-toggle" 
+          style="background: #a5c8ff; border: none; border-radius: 50%; width: 56px; height: 56px; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+    🤖
+  </button>
+  <div id="chatbot-box" style="display: none; flex-direction: column; background: #0d1b2a; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); height: 400px; max-height: 70vh; margin-top: 10px; overflow: hidden;">
+    <div style="background: #415a77; color: #a5c8ff; padding: 10px; font-weight: 700; text-align: center;">Robot Chatbot</div>
+    <div id="chat-messages" style="flex: 1; padding: 10px; overflow-y: auto; color: #d0d7de; background: #1b263b; font-size: 0.9rem;"></div>
+    <form id="chat-form" style="display: flex; border-top: 1px solid #415a77;">
+      <input id="chat-input" type="text" placeholder="Type your question..." autocomplete="off" 
+             style="flex: 1; border: none; padding: 10px; font-size: 1rem; background: #0d1b2a; color: #d0d7de;" />
+      <button type="submit" style="background: #a5c8ff; border: none; padding: 0 15px; cursor: pointer; font-weight: 700; color: #0d1b2a;">Send</button>
+    </form>
+  </div>
+</div>
+ 
+<script>
+const toggleBtn = document.getElementById('chatbot-toggle');
+const chatbotBox = document.getElementById('chatbot-box');
+const chatForm = document.getElementById('chat-form');
+const chatInput = document.getElementById('chat-input');
+const chatMessages = document.getElementById('chat-messages');
+
+const botResponses = {
+  "hello": "Hello! How can I assist you with robots today?",
+  "hi": "Hi there! Feel free to ask me about robots.",
+  "what is a robot": "A robot is a machine capable of carrying out complex actions automatically.",
+  "who created robots": "Robots were developed by many scientists and engineers over decades.",
+  "types of robots": "There are many types: industrial, service, medical, military, research, and more.",
+  "thank you": "You're welcome! Ask me anything else if you'd like.",
+  "bye": "Goodbye! Have a robotic day! 🤖"
+};
+
+// Toggle chatbot open/close
+toggleBtn.addEventListener('click', () => {
+  if (chatbotBox.style.display === 'none') {
+    chatbotBox.style.display = 'flex';
+    chatInput.focus();
+  } else {
+    chatbotBox.style.display = 'none';
+  }
+});
+
+// Append messages
+function appendMessage(text, sender = "user") {
+  const div = document.createElement('div');
+  div.textContent = text;
+  div.style.marginBottom = '10px';
+  div.style.lineHeight = '1.3';
+  if (sender === 'bot') {
+    div.style.color = '#a5c8ff';
+  } else {
+    div.style.color = '#d0d7de';
+    div.style.textAlign = 'right';
+  }
+  chatMessages.appendChild(div);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// Get bot reply
+function getBotReply(message) {
+  const msg = message.toLowerCase().trim();
+  for (const key in botResponses) {
+    if (msg.includes(key)) {
+      return botResponses[key];
+    }
+  }
+  return "Sorry, I don't have an answer for that. Try asking about robot types or history!";
+}
+
+// Handle form submit
+chatForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const message = chatInput.value.trim();
+  if (!message) return;
+  appendMessage(message, 'user');
+  chatInput.value = '';
+  setTimeout(() => {
+    const reply = getBotReply(message);
+    appendMessage(reply, 'bot');
+  }, 600);
+});
+</script>
+
+
+
+
 </footer>
 
 
