@@ -663,3 +663,143 @@ body{
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+/* General Reset & Base Styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f6f8;
+  color: #1b263b;
+}
+
+header {
+  background-color: #0d1b2a;
+  padding: 1rem 2rem;
+  color: white;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.nav-links a.active,
+.nav-links a:hover {
+  text-decoration: underline;
+}
+
+main {
+  padding: 2rem;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #0d1b2a;
+}
+
+/* Timeline Styles */
+.timeline-container {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.timeline {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  border-left: 3px solid #a5c8ff;
+}
+
+.timeline-item {
+  margin: 2rem 0;
+  padding-left: 2rem;
+  position: relative;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 0.5rem;
+  width: 18px;
+  height: 18px;
+  background-color: #a5c8ff;
+  border-radius: 50%;
+  border: 3px solid white;
+}
+
+.timeline-date {
+  font-weight: bold;
+  color: #627d98;
+  margin-bottom: 0.25rem;
+}
+
+.timeline-content h3 {
+  margin: 0.25rem 0;
+  color: #1b263b;
+}
+
+.timeline-content p {
+  margin: 0;
+  color: #3a506b;
+}
+
+/* Footer */
+footer {
+  background-color: #0d1b2a;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 3rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .timeline-container {
+    padding: 0 1rem;
+  }
+
+  .timeline {
+    border-left: 2px solid #a5c8ff;
+  }
+
+  .timeline-item::before {
+    width: 14px;
+    height: 14px;
+    left: -8px;
+  }
+}
