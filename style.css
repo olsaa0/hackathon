@@ -609,3 +609,57 @@ body{
 .robot-facts li {
   margin-bottom: 0.8rem;
 }
+
+
+
+
+
+
+
+.comment-section {
+  max-width: 800px;
+  margin: 3rem auto;
+  padding: 1.5rem;
+  background-color: #f0f4f8;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+.comment-section h2 {
+  color: #0d1b2a;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+#comments-container {
+  margin-bottom: 1.5rem;
+}
+.comment {
+  background: #ffffff;
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.6rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+#comment-form input,
+#comment-form textarea {
+  width: 100%;
+  padding: 0.8rem;
+  margin: 0.4rem 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+#comment-form button {
+  padding: 0.7rem 1.4rem;
+  background-color: #0d1b2a;
+  color: #a5c8ff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+#comment-form button:hover {
+  background-color: #1b263b;
+}
+
+

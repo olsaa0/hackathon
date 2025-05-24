@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Robots</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background-color: #6A9AB0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #0d1b2a;
+      margin: 0; padding: 0;
+    }
+
+    nav {
+      background-color: #0d1b2a;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+    }
+    nav .logo {
+      color: #a5c8ff;
+      font-size: 1.7rem;
+      font-weight: 700;
+    }
+    nav ul {
+      display: flex;
+      gap: 1.8rem;
+      list-style: none;
+      margin: 0; padding: 0;
+    }
+    nav ul li a {
+      color: #a5c8ff;
+      text-decoration: none;
+      font-size: 1.1rem;
+    }
+    nav ul li a:hover {
+      color: #d0e8ff;
+    }
+
+    .search-bar {
+      text-align: center;
+      margin: 1rem auto;
+    }
+
+    .search-bar input {
+      padding: 0.6rem 1rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #415a77;
+      width: 300px;
+      max-width: 80%;
+    }
+
+    .robots-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+
+    .robot-card {
+      background-color: #0d1b2a;
+      color: #a5c8ff;
+      width: 300px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: transform 0.2s ease;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .robot-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .robot-card h3 {
+      font-size: 1.3rem;
+      margin: 0.6rem 0;
+    }
+
+    .robot-card p {
+      padding: 0 1rem 1rem;
+      font-size: 0.95rem;
+      color: #d0d7de;
+    }
+
+    .robot-card:hover {
+      transform: translateY(-6px);
+    }
+
+    footer {
+      background-color: #0d1b2a;
+      color: #a5c8ff;
+      text-align: center;
+      padding: 1.2rem 0;
+      font-size: 0.95rem;
+      letter-spacing: 1.1px;
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">୨ৎ Robots</div>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="robots.html">Robots</a></li>
+    <li><a href="timeline.html">Timeline</a></li>
+    <li><a href="stats.html">Stats</a></li>
+    <li><a href="#media">Media</a></li>
+    <li><a href="#contact">Suggest</a></li>
+  </ul>
+</nav>
+
+<section class="search-bar">
+  <input type="text" id="searchInput" placeholder="Search robots by name or keyword...">
+</section>
+
+<section class="robots-grid" id="robots-grid">
+  <article class="robot-card" data-keywords="humanoid ai humanlike">
+    <img src="https://www.cio.com/wp-content/uploads/2025/02/3829539-0-75501800-1740132217-shutterstock_2482705481.jpg?quality=50&strip=all" alt="Ameca" />
+    <h3>Ameca</h3>
+    <p>A lifelike humanoid robot designed to mimic human facial expressions and social interaction.</p>
+  </article>
+
+  <article class="robot-card" data-keywords="military combat ai drone">
+    <img src="https://c02.purpledshub.com/uploads/sites/41/2024/10/ameca.jpg?w=1029&webp=1" alt="Ghost Robotics Vision 60" />
+    <h3>Ghost Robotics Vision 60</h3>
+    <p>Quadruped robot used in military and security missions with advanced mobility and terrain navigation.</p>
+  </article>
+
+  <article class="robot-card" data-keywords="space nasa exploration rover">
+    <img src="https://assets.robotsguide.com/images/7p2whiua/production/7a5bab1771e8586ad4492ef1e39d6d1c9a7efcb2-2048x1536.jpg?w=960&h=720&auto=format" alt="Perseverance Rover" />
+    <h3>Perseverance Rover</h3>
+    <p>Nasa’s Mars rover designed to explore the Martian surface and search for signs of ancient life.</p>
+  </article>
+
+  <article class="robot-card" data-keywords="logistics delivery automation warehouse">
+    <img src="https://www.diamandis.com/hubfs/resized_image_1200x628.png" alt="Amazon Robotics Drive Unit" />
+    <h3>Amazon Robotics Drive Unit</h3>
+    <p>Autonomous mobile robots used in Amazon's warehouses to transport goods efficiently and reduce human labor.</p>
+  </article>
+
+  <article class="robot-card" data-keywords="agriculture field farming automation tractor">
+    <img src="https://www.rn.com/siteassets/blog/nursing-news/robots-in-healthcare.jpg" alt="John Deere Autonomous Tractor" />
+    <h3>John Deere Autonomous Tractor</h3>
+    <p>Smart farming robot that uses AI and GPS to autonomously plow, plant, and monitor crops in large fields.</p>
+  </article>
+
+  <article class="robot-card" data-keywords="humanoid research development innovation">
+    <img src="https://www.telefonica.com/en/wp-content/uploads/sites/5/2023/07/differences-robotis-ia.jpg" alt="Atlas by Boston Dynamics" />
+    <h3>Atlas</h3>
+    <p>A humanoid robot built by Boston Dynamics capable of dynamic movement, balance, and complex tasks in research settings.</p>
+  </article>
+
+<article class="robot-card" data-keywords="warehouse logistics humanoid automation delivery">
+  <img src="https://media.cnn.com/api/v1/images/stellar/prod/agility-robotics-digit-3.jpg?c=original" alt="Digit Robot" />
+  <h3>Digit</h3>
+  <p>A bipedal humanoid robot designed by Agility Robotics to work alongside humans in warehouses and delivery operations.</p>
+</article>
+
+<article class="robot-card" data-keywords="humanoid exoskeleton apptronik warehouse">
+  <img src="https://techcrunch.com/wp-content/uploads/2025/01/apptronik.jpg?w=1024" alt="Apptronik Apollo" />
+  <h3>Apptronik Apollo</h3>
+  <p>An advanced general-purpose humanoid robot developed for labor-intensive tasks in logistics and industry.</p>
+</article>
+
+
+
+<section class="comment-section">
+  <h2>💬 Community Opinions</h2>
+  <div id="comments-container">
+    <div class="comment"><strong>Ayla:</strong> I think Ameca is mind-blowing. The facial expressions are unreal!</div>
+    <div class="comment"><strong>Liam:</strong> Spot from Boston Dynamics is super helpful in disaster zones.</div>
+    <div class="comment"><strong>Zara:</strong> Da Vinci surgical robots are life-saving. Truly amazing tech.</div>
+  </div>
+
+  <form id="comment-form">
+    <input type="text" id="name" placeholder="Your name" required />
+    <textarea id="comment" placeholder="Your comment..." required></textarea>
+    <button type="submit">Post Comment</button>
+  </form>
+</section>
+
+
+
+
+<script>
+  const searchInput = document.getElementById('searchInput');
+  const robotCards = document.querySelectorAll('.robot-card');
+  const commentsContainer = document.getElementById('comments-container'); // Comments wrapper
+  const commentSection = document.getElementById('comments-section'); // The entire comments section container (make sure this exists)
+
+  searchInput.addEventListener('input', () => {
+    const query = searchInput.value.toLowerCase();
+    robotCards.forEach(card => {
+      const keywords = card.dataset.keywords.toLowerCase();
+      const name = card.querySelector('h3').textContent.toLowerCase();
+      const match = name.includes(query) || keywords.includes(query);
+      card.style.display = match ? 'block' : 'none';
+    });
+
+    // Hide the entire comments section while searching
+    if (query.length > 0) {
+      commentSection.style.display = 'none';
+    } else {
+      commentSection.style.display = 'block';
+    }
+  });
+
+
+  const form = document.getElementById('comment-form');
+
+  // Load from localStorage
+  window.addEventListener('load', () => {
+    const savedComments = JSON.parse(localStorage.getItem('robotComments')) || [];
+    savedComments.forEach(({ name, text }) => {
+      addCommentToDOM(name, text);
+    });
+  });
+
+  // Add new comment
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const text = document.getElementById('comment').value.trim();
+
+    if (name && text) {
+      addCommentToDOM(name, text);
+      saveComment(name, text);
+      form.reset();
+    }
+  });
+
+  function addCommentToDOM(name, text) {
+    const div = document.createElement('div');
+    div.classList.add('comment');
+    div.innerHTML = `<strong>${name}:</strong> ${text} <button class="remove-comment">Remove</button>`;
+    commentsContainer.appendChild(div);
+
+    // Add remove functionality
+    div.querySelector('.remove-comment').addEventListener('click', () => {
+      div.remove();
+      removeCommentFromStorage(name, text);
+    });
+  }
+
+  function saveComment(name, text) {
+    const saved = JSON.parse(localStorage.getItem('robotComments')) || [];
+    saved.push({ name, text });
+    localStorage.setItem('robotComments', JSON.stringify(saved));
+  }
+
+  function removeCommentFromStorage(name, text) {
+    let saved = JSON.parse(localStorage.getItem('robotComments')) || [];
+    saved = saved.filter(comment => !(comment.name === name && comment.text === text));
+    localStorage.setItem('robotComments', JSON.stringify(saved));
+  }
+</script>
+
+
+
+</body>
+</html>
