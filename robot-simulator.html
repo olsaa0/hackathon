@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teach-A-Robot Simulator</title>
+  <link rel="stylesheet" href="simulator.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f4f8;
+      color: #333;
+    }
+
+    header {
+      background-color: #1f2937;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+
+    main {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    #command-section, #grid-section, #explanation-section {
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    textarea {
+      width: 100%;
+      font-family: monospace;
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      resize: vertical;
+    }
+
+    button {
+      margin-top: 1rem;
+      margin-right: 1rem;
+      padding: 0.75rem 1.5rem;
+      background-color: #213448;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: aqua;
+    }
+
+    #grid {
+      width: 300px;
+      height: 300px;
+      background-color: #e2e8f0;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(5, 1fr);
+      gap: 2px;
+    }
+
+    .cell {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    #explanation {
+      font-size: 1rem;
+      margin-top: 0.5rem;
+      color: #1f2937;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="nav-logo">୨ৎ Robots</div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="robots.html">Robots</a></li>
+        <li><a href="#timeline">Timeline</a></li>
+        <li><a href="stats.html">Stats</a></li>
+        <li><a href="#media">Media</a></li>
+        <li><a href="robot-simulator.html">Robot Simulator</a></li>
+      </ul>
+      
+    </nav>
+  </header>
+
+  <main>
+    <section id="command-section">
+      <h2>Enter Robot Commands</h2>
+      <textarea id="command-input" rows="5" placeholder="Example: moveForward(2); turnRight(); turnLeft(); reset();"></textarea>
+      <div>
+        <button id="run-button">Run Commands</button>
+        <button id="reset-button">Reset</button>
+      </div>
+    </section>
+
+    <section id="grid-section">
+      <h2>Robot Grid</h2>
+      <div id="grid"></div>
+    </section>
+
+    <section id="explanation-section">
+      <h2>Explanation</h2>
+      <p id="explanation">Commands will be explained here as they run.</p>
+    </section>
+  </main>
+
+  <script>
+    const grid = document.getElementById('grid');
+    const commandInput = document.getElementById('command-input');
+    const runButton = document.getElementById('run-button');
+    const resetButton = document.getElementById('reset-button');
+    const explanation = document.getElementById('explanation');
+    const cells = [];
+    let robotPosition = 0;
+    let direction = 'right';
+
+    for (let i = 0; i < 25; i++) {
+      const cell = document.createElement('div');
+      cell.classList.add('cell');
+      cells.push(cell);
+      grid.appendChild(cell);
+    }
+
+    function renderRobot() {
+      cells.forEach(cell => cell.textContent = '');
+      cells[robotPosition].textContent = '🤖';
+    }
+
+    function moveForward(steps) {
+      for (let i = 0; i < steps; i++) {
+        let nextPosition = robotPosition;
+        if (direction === 'right' && (robotPosition % 5) < 4) nextPosition += 1;
+        if (direction === 'left' && (robotPosition % 5) > 0) nextPosition -= 1;
+        if (direction === 'down' && robotPosition + 5 < 25) nextPosition += 5;
+        if (direction === 'up' && robotPosition - 5 >= 0) nextPosition -= 5;
+        robotPosition = nextPosition;
+      }
+      explanation.textContent = `Robot moved ${steps} step(s) ${direction} to position ${robotPosition}.`;
+      renderRobot();
+    }
+
+    function turnRight() {
+      const directions = ['right', 'down', 'left', 'up'];
+      const index = directions.indexOf(direction);
+      direction = directions[(index + 1) % 4];
+      explanation.textContent = `Robot turned right. Now facing ${direction}.`;
+    }
+
+    function turnLeft() {
+      const directions = ['right', 'down', 'left', 'up'];
+      const index = directions.indexOf(direction);
+      direction = directions[(index + 3) % 4];
+      explanation.textContent = `Robot turned left. Now facing ${direction}.`;
+    }
+
+    function reset() {
+      robotPosition = 0;
+      direction = 'right';
+      explanation.textContent = 'Simulation reset. Robot is at start and facing right.';
+      renderRobot();
+    }
+
+    runButton.addEventListener('click', () => {
+      const commands = commandInput.value.trim().split(';');
+      for (let command of commands) {
+        if (command.includes('moveForward')) {
+          const steps = parseInt(command.match(/\d+/)?.[0] || '1', 10);
+          moveForward(steps);
+        } else if (command.includes('turnRight')) {
+          turnRight();
+        } else if (command.includes('turnLeft')) {
+          turnLeft();
+        } else if (command.includes('reset')) {
+          reset();
+        }
+      }
+    });
+
+    
+
+    resetButton.addEventListener('click', reset);
+
+    renderRobot();
+  </script>
+
+
+<footer class="site-footer">
+  <div class="footer-content">
+    <div class="footer-left">
+      <h2>Robotics Insight</h2>
+      <p>Exploring the most impactful robots shaping our world today.</p>
+    </div>
+    <div class="footer-right">
+      <ul class="footer-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Robots</a></li>
+        <li><a href="#">Timeline</a></li>
+        <li><a href="#">Stats</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    
+  </div>
+  </footer>
+</body>
+</html>

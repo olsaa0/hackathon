@@ -1,0 +1,354 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+    background-color: #6A9AB0;
+}
+
+/* Navbar container */
+.navbar {
+  position: sticky;
+  top: 0;
+  background: #0d1b2a;
+  backdrop-filter: saturate(180%) blur(20px);
+  display: flex;
+  justify-content: space-between; /* pushes items to far left and right */
+  align-items: center;
+  padding: 1rem 3rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+/* Logo on the left */
+.logo {
+  color: #B5CFD8;
+  font-size: 2.5rem; /* increased font size */
+  font-weight: 900;
+  text-decoration: none;
+  letter-spacing: 1.5px;
+  user-select: none;
+}
+
+/* Nav links container aligned to right */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  justify-content: flex-end;  /* align links to right */
+  flex-grow: 1; /* take available space to push them right */
+}
+
+/* Nav links */
+.nav-links a {
+  position: relative;
+  text-decoration: none;
+  color: #e0e0e0;
+  font-weight: 600;
+  font-size: 1.05rem;
+  padding: 0.2rem 0;
+  transition: color 0.3s ease;
+  user-select: none;
+}
+
+/* Underline animation on hover */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #B5CFD8;
+  transition: width 0.3s ease;
+  border-radius: 4px;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* Hover color */
+.nav-links a:hover {
+  color: #B5CFD8;
+  cursor: pointer;
+}
+
+/* Mobile menu checkbox (hidden) */
+.nav-toggle {
+  display: none;
+}
+
+/* Hamburger menu label on the far right */
+.nav-toggle-label {
+  display: none;
+  width: 35px;
+  height: 28px;
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Hamburger bars */
+.nav-toggle-label span,
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  background-color: #66fcf1;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.nav-toggle-label span {
+  top: 50%;
+  margin-top: -2px;
+}
+
+.nav-toggle-label span::before {
+  content: "";
+  top: -10px;
+}
+
+.nav-toggle-label span::after {
+  content: "";
+  top: 10px;
+}
+
+/* Toggle animation */
+.nav-toggle:checked + .nav-toggle-label span {
+  background-color: transparent;
+}
+
+.nav-toggle:checked + .nav-toggle-label span::before {
+  transform: rotate(45deg);
+  top: 0;
+}
+
+.nav-toggle:checked + .nav-toggle-label span::after {
+  transform: rotate(-45deg);
+  top: 0;
+}
+
+
+@media (max-width: 768px) {
+  
+  .nav-toggle-label {
+    display: block;
+  }
+
+  
+  .nav-links {
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    background: #001F3F;
+    flex-direction: column;
+    width: 60%;
+    padding-top: 5rem;
+    gap: 2.5rem;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  }
+
+  
+  .nav-toggle:checked ~ .nav-links {
+    transform: translateX(0);
+  }
+
+  .nav-links a {
+    font-size: 1.3rem;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  color: #222;
+}
+
+header {
+  background-color: #1e3a8a;
+  color: white;
+  padding: 1.5rem 2rem;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 2px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+main {
+  padding: 2rem 3rem;
+  max-width: 900px;
+  margin: 2rem auto 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+section {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+h1, h2 {
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+textarea {
+  width: 100%;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.1rem;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+  resize: vertical;
+  transition: border-color 0.3s ease;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #213448;
+  box-shadow: 0 0 8px #505e6e;
+}
+
+button {
+  margin-top: 1rem;
+  margin-right: 1rem;
+  padding: 0.9rem 2rem;
+  background-color: #213448;
+  color: white;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.15s ease;
+  box-shadow: 0 4px 8px rgba(30,64,175,0.3);
+}
+
+button:hover {
+  background-color: #213448;
+  transform: scale(1.05);
+  box-shadow: 0 6px 14px rgba(158, 188, 254, 0.5);
+}
+
+#grid {
+  width: 320px;
+  height: 320px;
+  background-color: #f9fafb;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 6px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.cell {
+  background-color: white;
+  border-radius: 10px;
+  border: 2px solid #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: #334155;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+.cell:hover {
+  background-color: #e0e7ff;
+}
+
+#explanation-section {
+  font-size: 1.1rem;
+  color: aqua;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  min-height: 50px;
+}
+
+
+.site-footer {
+  background-color: #0d1b2a;
+  color: #e0e0e0;
+  padding: 2rem 1rem 1rem;
+  margin-top: 3rem;
+  font-size: 0.95rem;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: auto;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #33415c;
+}
+
+.footer-left h2 {
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.footer-left p {
+  max-width: 400px;
+  line-height: 1.6;
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-links a {
+  color: #a5c8ff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #ffffff;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: #aaa;
+}
