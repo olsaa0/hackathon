@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Robot Vision Simulator</title>
+  <link rel="stylesheet" href="robot-vision.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 20px;
+      background: #121212;
+      color: #eee;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    h1 {
+      margin-bottom: 10px;
+    }
+    #container {
+      display: flex;
+      gap: 20px;
+      max-width: 900px;
+      width: 100%;
+      justify-content: center;
+    }
+    .canvas-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    canvas {
+      border: 2px solid #555;
+      max-width: 400px;
+      max-height: 400px;
+      image-rendering: pixelated;
+    }
+    input[type="file"] {
+      margin-bottom: 10px;
+      cursor: pointer;
+      background: #2563eb;
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: none;
+      color: white;
+      font-weight: bold;
+    }
+    input[type="file"]:hover {
+      background: #1d4ed8;
+    }
+    select {
+      margin-bottom: 5px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      background: #2563eb;
+      color: white;
+    }
+    select:hover {
+      background: #1d4ed8;
+    }
+    #instructions {
+      margin-bottom: 10px;
+      font-style: italic;
+      color: #ccc;
+    }
+    #mode-explanation {
+      font-style: italic;
+      color: #bbb;
+      max-width: 900px;
+      margin-bottom: 20px;
+      text-align: center;
+      min-height: 1.2em;
+    }
+  </style>
+</head>
+<body>
+    <header>
+    <nav class="navbar">
+      <div class="nav-logo">୨ৎ Robots</div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="robots.html">Robots</a></li>
+        <li><a href="#timeline">Timeline</a></li>
+        <li><a href="stats.html">Stats</a></li>
+        <li><a href="robot-vision.html">Robot Vision</a></li>
+        <li><a href="robot-simulator.html">Robot Simulator</a></li>
+      </ul>
+      
+    </nav>
+  </header>
+
+  <h1>Robot Vision Simulator</h1>
+  <div id="instructions">Upload an image and choose a vision mode.</div>
+  
+  <input type="file" id="upload" accept="image/*" />
+  <select id="visionMode">
+    <option value="grayscale">Grayscale</option>
+    <option value="edge">Edge Detection</option>
+    <option value="invert">Invert Colors</option>
+    <option value="threshold">Threshold</option>
+  </select>
+  
+  <div id="mode-explanation">Select a vision mode to see its explanation.</div>
+  
+  <div id="container">
+    <div class="canvas-container">
+      <h2>Original Image</h2>
+      <canvas id="original"></canvas>
+    </div>
+    <div class="canvas-container">
+      <h2>Robot Vision</h2>
+      <canvas id="processed"></canvas>
+    </div>
+  </div>
+
+  <script>
+    const upload = document.getElementById('upload');
+    const visionMode = document.getElementById('visionMode');
+    const originalCanvas = document.getElementById('original');
+    const processedCanvas = document.getElementById('processed');
+    const originalCtx = originalCanvas.getContext('2d');
+    const processedCtx = processedCanvas.getContext('2d');
+    const modeExplanation = document.getElementById('mode-explanation');
+
+    let originalImageData = null;
+
+    const explanations = {
+      grayscale: "Shows the image in shades of gray — no colors.",
+      edge: "Highlights the outlines of objects by detecting edges.",
+      invert: "Flips colors to their opposites — like a photo negative.",
+      threshold: "Turns the image into black and white based on brightness."
+    };
+
+    function updateExplanation(mode) {
+      modeExplanation.textContent = explanations[mode] || "Select a vision mode to see its explanation.";
+    }
+
+    upload.addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+
+      img.onload = () => {
+        originalCanvas.width = img.width;
+        originalCanvas.height = img.height;
+        processedCanvas.width = img.width;
+        processedCanvas.height = img.height;
+
+        originalCtx.drawImage(img, 0, 0);
+        originalImageData = originalCtx.getImageData(0, 0, img.width, img.height);
+        
+        applyVisionMode();
+        updateExplanation(visionMode.value);
+
+        URL.revokeObjectURL(url);
+      };
+
+      img.src = url;
+    });
+
+    visionMode.addEventListener('change', () => {
+      if (!originalImageData) return;
+      applyVisionMode();
+      updateExplanation(visionMode.value);
+    });
+
+    function applyVisionMode() {
+      let processedData;
+      switch(visionMode.value) {
+        case 'grayscale':
+          processedData = grayscale(originalImageData);
+          break;
+        case 'edge':
+          processedData = edgeDetection(originalImageData);
+          break;
+        case 'invert':
+          processedData = invertColors(originalImageData);
+          break;
+        case 'threshold':
+          processedData = threshold(originalImageData, 128);
+          break;
+        default:
+          processedData = originalImageData;
+      }
+      processedCtx.putImageData(processedData, 0, 0);
+    }
+
+    function grayscale(imageData) {
+      const data = new Uint8ClampedArray(imageData.data);
+      for (let i = 0; i < data.length; i += 4) {
+        const r = data[i], g = data[i+1], b = data[i+2];
+        const gray = 0.21*r + 0.72*g + 0.07*b;
+        data[i] = data[i+1] = data[i+2] = gray;
+      }
+      return new ImageData(data, imageData.width, imageData.height);
+    }
+
+    function edgeDetection(imageData) {
+      const grayData = grayscale(imageData);
+      const width = grayData.width;
+      const height = grayData.height;
+      const data = grayData.data;
+      const edgeData = new Uint8ClampedArray(data.length);
+
+      const sobelX = [-1,0,1,-2,0,2,-1,0,1];
+      const sobelY = [-1,-2,-1,0,0,0,1,2,1];
+
+      function getGray(x,y) {
+        if (x<0 || x>=width || y<0 || y>=height) return 0;
+        return data[(y*width + x)*4];
+      }
+
+      for (let y=0; y<height; y++) {
+        for (let x=0; x<width; x++) {
+          let gx=0, gy=0, k=0;
+          for (let ky=-1; ky<=1; ky++) {
+            for (let kx=-1; kx<=1; kx++) {
+              const val = getGray(x+kx, y+ky);
+              gx += val * sobelX[k];
+              gy += val * sobelY[k];
+              k++;
+            }
+          }
+          let mag = Math.sqrt(gx*gx + gy*gy);
+          mag = mag > 255 ? 255 : mag;
+          mag = 255 - mag; // invert edges for better visibility
+          const idx = (y*width + x)*4;
+          edgeData[idx] = edgeData[idx+1] = edgeData[idx+2] = mag;
+          edgeData[idx+3] = 255;
+        }
+      }
+
+      return new ImageData(edgeData, width, height);
+    }
+
+    function invertColors(imageData) {
+      const data = new Uint8ClampedArray(imageData.data);
+      for (let i=0; i<data.length; i+=4) {
+        data[i] = 255 - data[i];
+        data[i+1] = 255 - data[i+1];
+        data[i+2] = 255 - data[i+2];
+      }
+      return new ImageData(data, imageData.width, imageData.height);
+    }
+
+    function threshold(imageData, threshold=128) {
+      const grayData = grayscale(imageData);
+      const data = grayData.data;
+      for (let i=0; i<data.length; i+=4) {
+        const val = data[i] > threshold ? 255 : 0;
+        data[i] = data[i+1] = data[i+2] = val;
+      }
+      return new ImageData(data, grayData.width, grayData.height);
+    }
+  </script>
+
+
+<footer class="site-footer">
+  <div class="footer-content">
+    <div class="footer-left">
+      <h2>Robotics Insight</h2>
+      <p>Exploring the most impactful robots shaping our world today.</p>
+    </div>
+    <div class="footer-right">
+      <ul class="footer-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Robots</a></li>
+        <li><a href="#">Timeline</a></li>
+        <li><a href="#">Stats</a></li>
+        <li><a href="robot-simulator.html">Robot Simulator</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    
+  </div>
+</body>
+</html>
