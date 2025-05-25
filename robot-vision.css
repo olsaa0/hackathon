@@ -228,3 +228,98 @@ body{
   font-size: 0.85rem;
   color: #aaa;
 }
+
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background: linear-gradient(135deg, #0d1b2a 0%, #B5CFD8 100%);
+  color: #eee;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  user-select: none;
+}
+
+h1 {
+  margin-bottom: 15px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: #B5CFD8;
+  text-shadow: 0 0 6px #3b82f6aa;
+}
+
+#container {
+  display: flex;
+  gap: 30px;
+  max-width: 900px;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.canvas-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #1e1e2f;
+  padding: 15px 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(40, 80, 160, 0.3);
+  min-width: 320px;
+}
+
+canvas {
+  border: 2px solid #555;
+  max-width: 400px;
+  max-height: 400px;
+  image-rendering: pixelated;
+  border-radius: 8px;
+  box-shadow: inset 0 0 6px #3b82f6cc;
+  background: #111;
+}
+
+input[type="file"], select {
+  margin-bottom: 10px;
+  cursor: pointer;
+  background: #2563eb;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 3px 8px rgba(37, 99, 235, 0.6);
+  user-select: none;
+  max-width: 320px;
+  width: 100%;
+}
+
+input[type="file"]:hover,
+select:hover {
+  background: #1d4ed8;
+  box-shadow: 0 5px 12px rgba(29, 78, 216, 0.8);
+}
+
+#instructions {
+  margin-bottom: 10px;
+  font-style: italic;
+  color: #bbb;
+  max-width: 900px;
+  text-align: center;
+}
+
+#mode-explanation {
+  font-style: italic;
+  color: #8ab4f8;
+  max-width: 900px;
+  margin-bottom: 25px;
+  text-align: center;
+  min-height: 1.3em;
+  font-weight: 600;
+  text-shadow: 0 0 3px #4f7fffaa;
+  user-select: text;
+}
